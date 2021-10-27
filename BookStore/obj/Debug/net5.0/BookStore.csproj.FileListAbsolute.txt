@@ -129,7 +129,6 @@ C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.
 C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.0\staticwebassets\BookStore.StaticWebAssets.xml
 C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.0\scopedcss\bundle\BookStore.styles.css
 C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.0\BookStore.RazorTargetAssemblyInfo.cache
-C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.0\BookStore.csproj.CopyComplete
 C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.0\BookStore.dll
 C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.0\ref\BookStore.dll
 C:\Users\laryder\Documents\first_git_project\BookStore\BookStore\obj\Debug\net5.0\BookStore.pdb

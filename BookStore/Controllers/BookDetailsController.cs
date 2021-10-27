@@ -9,7 +9,7 @@ using BookStore.Models;
 
 namespace BookStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/BookDetails")]
     [ApiController]
     public class BookDetailsController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace BookStore.Controllers
         public async Task<ActionResult<IEnumerable<BookDetailsDTO>>> GetBookDetails()
         {
             return await _context.BookDetails
-                .Select(x => BooktoDTO(x))
+                .Select(x => BookToDTO(x))
                 .ToListAsync();
         }
 
@@ -41,7 +41,7 @@ namespace BookStore.Controllers
                 return NotFound();
             }
 
-            return BookDTO;
+            return BookToDTO(bookDetails);
         }
 
         // PUT: api/BookDetails/5
@@ -68,23 +68,15 @@ namespace BookStore.Controllers
             bookDetails.Type = bookDetailsDTO.Type;
             bookDetails.IsAvailable = bookDetailsDTO.IsAvailable;
 
-
-
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookDetailsExists(id))
+            catch (DbUpdateConcurrencyException) when (!BookDetailsExists(id))
+
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
             return NoContent();
         }
@@ -92,12 +84,26 @@ namespace BookStore.Controllers
         // POST: api/BookDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BookDetails>> PostBookDetails(BookDetails bookDetails)
+        public async Task<ActionResult<BookDetailsDTO>> CreateBookDetails(BookDetailsDTO bookDetailsDTO)
         {
-            _context.BookDetails.Add(bookDetails);
+            var bookdetails = new BookDetails
+            {
+                IsAvailable = bookDetailsDTO.IsAvailable,
+                AuthorName = bookDetailsDTO.AuthorName,
+                Title = bookDetailsDTO.Title,
+                YearPublished = bookDetailsDTO.YearPublished,
+                Pages = bookDetailsDTO.Pages,
+                SellPrice = bookDetailsDTO.SellPrice,
+                Genre = bookDetailsDTO.Genre,
+                Type = bookDetailsDTO.Type,
+        };
+            _context.BookDetails.Add(bookdetails);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBookDetails", new { id = bookDetails.Id }, bookDetails);
+            return CreatedAtAction(
+                nameof(GetBookDetails),
+                new { id = bookdetails.Id },
+                BookToDTO(bookdetails));
         }
 
         // DELETE: api/BookDetails/5
@@ -116,9 +122,22 @@ namespace BookStore.Controllers
             return NoContent();
         }
 
-        private bool BookDetailsExists(int id)
-        {
-            return _context.BookDetails.Any(e => e.Id == id);
-        }
+        private bool BookDetailsExists(int id) =>
+            _context.BookDetails.Any(e => e.Id == id);
+
+        private static BookDetailsDTO BookToDTO(BookDetails bookdetails) =>
+            new BookDetailsDTO
+            {
+                Id = bookdetails.Id,
+                IsAvailable = bookdetails.IsAvailable,
+                AuthorName = bookdetails.AuthorName,
+                Title = bookdetails.Title,
+                YearPublished = bookdetails.YearPublished,
+                Pages = bookdetails.Pages,
+                SellPrice = bookdetails.SellPrice,
+                Genre = bookdetails.Genre,
+                Type = bookdetails.Type,
+            };
+
     }
 }
