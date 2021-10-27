@@ -11,8 +11,13 @@ namespace BookStore.Models
         public BookContext(DbContextOptions<BookContext> options)
               : base(options)
         {
-
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seed();
+        }
+
         public DbSet<BookDetails> BookDetails { get; set; }
     }
 }
+

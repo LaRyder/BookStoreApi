@@ -17,6 +17,7 @@ namespace BookStore.Models
         public string Genre { get; set; }
         public string Type { get; set; }
         public bool IsAvailable { get; set; }
+        public virtual List<BookDetails> Books { get; set; }
     }
 
 }
