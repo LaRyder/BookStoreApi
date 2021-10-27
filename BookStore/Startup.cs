@@ -23,7 +23,8 @@ namespace BookStore
 
             services.AddControllers();
 
-            services.AddDbContext<BookContext>(opt => opt.UseInMemoryDatabase("BookList"));
+            // services.AddDbContext<BookContext>(opt => opt.UseInMemoryDatabase("BookList"));
+            services.AddDbContext<BookContext>(opt => opt.UseSqlServer("Data Source=DESKTOP-7D7TJF6\\SQLSERVER2019;Initial Catalog=master;User ID=sa;Password=@Lexandra1988!"));
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore", Version = "v1" });

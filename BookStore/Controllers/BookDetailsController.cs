@@ -20,6 +20,7 @@ namespace BookStore.Controllers
         public BookDetailsController(BookContext context)
         {
             _context = context;
+            _context.Database.EnsureCreated();
         }
 
         // GET: api/BookDetails
